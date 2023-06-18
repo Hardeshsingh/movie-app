@@ -5,13 +5,13 @@
 }
 
 body {
-    background-color: #22254b;
+    background-color: #7ae79d;
     font-family: "Poppins", sans-serif;
     margin: 0;
 }
 
 header {
-    background-color: #373b69;
+    background-color: #000000;
     display: flex;
     justify-content: flex-end;
     padding: 1rem;
@@ -38,7 +38,7 @@ header {
 .navbar{
     display: flex;
     font-size: 2rem ;
-    color: rgb(137, 3, 3);
+    color: rgb(255, 254, 254);
     font-weight: bold;
     justify-content: flex-start;
     margin-right: auto;
@@ -77,7 +77,7 @@ main {
 }
 
 .movie-info span {
-    background-color: #22254b;
+    background-color: #000000;
     border-radius: 3px;
     font-weight: bold;
     padding: 0.25rem 0.5rem;
