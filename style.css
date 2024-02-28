@@ -5,13 +5,13 @@
 }
 
 body {
-    background-color: #7ae79d;
+    background-color: #22254b;
     font-family: "Poppins", sans-serif;
     margin: 0;
 }
 
 header {
-    background-color: #000000;
+    background-color: #373b69;
     display: flex;
     justify-content: flex-end;
     padding: 1rem;
@@ -35,13 +35,19 @@ header {
     background-color: black;
     outline: none;
 }
-.navbar{
-    display: flex;
-    font-size: 2rem ;
-    color: rgb(255, 254, 254);
-    font-weight: bold;
-    justify-content: flex-start;
-    margin-right: auto;
+.navbar {
+    font-size: 5rem;
+    padding: 1rem; /* Add padding to provide spacing */
+    background-color: #373b69; /* Background color for the header */
+    position: absolute; /* Position the container absolutely */
+    left: 2rem; /* Position 1 rem from the left edge of the navbar */
+}
+
+h1 {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove any padding */
+    font-size: 3rem; /* Adjust font size as needed */
+    color: rgb(137, 3, 3); /* Adjust title color */
 }
 
 main {
@@ -77,7 +83,7 @@ main {
 }
 
 .movie-info span {
-    background-color: #000000;
+    background-color: #22254b;
     border-radius: 3px;
     font-weight: bold;
     padding: 0.25rem 0.5rem;
@@ -114,3 +120,23 @@ main {
 .movie:hover .overview {
     transform: translateY(0);
 }
+
+#sort{
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin: 2.2rem;
+    width: 300px;
+    height: 30px;
+}
+
+ #filter{
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin: 2.2rem;
+    width: 300px;
+    height: 30px;
+ }

@@ -1,27 +1,24 @@
-const APIURL =
-    "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1";
-const IMGPATH = "https://image.tmdb.org/t/p/w1280";
-const SEARCHAPI =
-    "https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=";
+const APIURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=b6cac70eb852bb91a229705eb87a3216&page=1";
+const SEARCHAPI = "https://api.themoviedb.org/3/search/movie?&api_key=b6cac70eb852bb91a229705eb87a3216&query=";
 
 const main = document.getElementById("main");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
+const sort = document.getElementById("sort");
+const filter = document.getElementById("filter");
 
+let moviesData = [];
 
-getMovies(APIURL);
-
+// Function to fetch movies from the API
 async function getMovies(url) {
     const resp = await fetch(url);
     const respData = await resp.json();
-
-    console.log(respData);
-
-    showMovies(respData.results);
+    moviesData = respData.results;
+    showMovies(moviesData);
 }
 
+// Function to display movies on the webpage
 function showMovies(movies) {
-    
     main.innerHTML = "";
 
     movies.forEach((movie) => {
@@ -32,14 +29,12 @@ function showMovies(movies) {
 
         movieEl.innerHTML = `
             <img
-                src="${IMGPATH + poster_path}"
+                src="https://image.tmdb.org/t/p/w1280${poster_path}"
                 alt="${title}"
             />
             <div class="movie-info">
                 <h3>${title}</h3>
-                <span class="${getClassByRate(
-                    vote_average
-                )}">${vote_average}</span>
+                <span class="${getClassByRate(vote_average)}">${vote_average}</span>
             </div>
             <div class="overview">
                 <h3>Overview:</h3>
@@ -51,6 +46,7 @@ function showMovies(movies) {
     });
 }
 
+// Function to get CSS class based on movie rating
 function getClassByRate(vote) {
     if (vote >= 8) {
         return "green";
@@ -61,14 +57,59 @@ function getClassByRate(vote) {
     }
 }
 
+// Event listener for form submission (search)
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    const searchTerm = search.value;
-
-    if (searchTerm) {
-        getMovies(SEARCHAPI + searchTerm);
-
-        search.value = "";
-    }
+    const searchTerm = search.value.trim();
+    const searchUrl = searchTerm ? `${SEARCHAPI}${searchTerm}` : APIURL;
+    getMovies(searchUrl);
+    search.value = "";
 });
+
+function sortMoviesAlphabetically(order) {
+    moviesData.sort((a, b) => {
+        const titleA = a.title.toUpperCase();
+        const titleB = b.title.toUpperCase();
+        if (order === "asc") {
+            if (titleA < titleB) return -1;
+            if (titleA > titleB) return 1;
+        } else {
+            if (titleA > titleB) return -1;
+            if (titleA < titleB) return 1;
+        }
+        return 0;
+    });
+}
+
+// Event listener for sorting dropdown
+sort.addEventListener("change", () => {
+    const selectedSort = sort.value;
+
+    // Sort movies based on selected criteria
+    if (selectedSort === "popularity.desc") {
+        moviesData.sort((a, b) => b.popularity - a.popularity); // Sort by popularity in descending order
+    } else if (selectedSort === "popularity.asc") {
+        moviesData.sort((a, b) => a.popularity - b.popularity); // Sort by popularity in ascending order
+    } else if (selectedSort === "vote_average.desc") {
+        moviesData.sort((a, b) => b.vote_average - a.vote_average); // Sort by rating in descending order
+    } else if (selectedSort === "vote_average.asc") {
+        moviesData.sort((a, b) => a.vote_average - b.vote_average); // Sort by rating in ascending order
+    } else if (selectedSort === "az") {
+        sortMoviesAlphabetically("asc"); // Sort alphabetically from A to Z
+    } else if (selectedSort === "za") {
+        sortMoviesAlphabetically("desc"); // Sort alphabetically from Z to A
+    }
+
+    // Display sorted movies
+    showMovies(moviesData);
+});
+
+// Event listener for filtering dropdown
+filter.addEventListener("change", () => {
+    const selectedGenre = filter.value;
+    const genreUrl = selectedGenre ? `${APIURL}&with_genres=${selectedGenre}` : APIURL;
+    getMovies(genreUrl);
+});
+
+// Initialize the app by fetching movies when the page loads
+getMovies(APIURL);
