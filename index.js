@@ -1,5 +1,5 @@
-const APIURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=b6cac70eb852bb91a229705eb87a3216&page=1";
-const SEARCHAPI = "https://api.themoviedb.org/3/search/movie?&api_key=b6cac70eb852bb91a229705eb87a3216&query=";
+const APIURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=442f2f9d4f688887c87bf78e0256d594&page=1";
+const SEARCHAPI = "https://api.themoviedb.org/3/search/movie?&api_key=442f2f9d4f688887c87bf78e0256d594&query=";
 
 const main = document.getElementById("main");
 const form = document.getElementById("form");
